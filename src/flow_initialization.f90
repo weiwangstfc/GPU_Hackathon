@@ -712,18 +712,41 @@ contains
     real(WP)   :: u(3)
     integer(4) :: imax(3), jmax(3), kmax(3)
 
-    u(1) = MAXVAL( abs_wp( ux(:, :, :) ) )
-    u(2) = MAXVAL( abs_wp( uy(:, :, :) ) )
-    u(3) = MAXVAL( abs_wp( uz(:, :, :) ) )
+    real(WP)   :: v(3)
+    integer(4) :: imin(3), jmin(3), kmin(3)
 
-    imax = MAXLOC( abs_wp( ux(:, :, :) ) )
-    jmax = MAXLOC( abs_wp( uy(:, :, :) ) )
-    kmax = MAXLOC( abs_wp( uz(:, :, :) ) )
+    u(1) = MAXVAL( ux(:, :, :) )
+    u(2) = MAXVAL( uy(:, :, :) )
+    u(3) = MAXVAL( uz(:, :, :) )
 
-    Call Print_debug_mid_msg("  The maximum Ux, Uy, Uz are:")
-    write(*, '(5X, A, 3I8.1, 1ES13.5)') 'Umax : ', imax, u(1)
-    write(*, '(5X, A, 3I8.1, 1ES13.5)') 'Vmax : ', jmax, u(2)
-    write(*, '(5X, A, 3I8.1, 1ES13.5)') 'Wmax : ', kmax, u(3)
+    imax = MAXLOC( ux(:, :, :) )
+    jmax = MAXLOC( uy(:, :, :) )
+    kmax = MAXLOC( uz(:, :, :) )
+
+    v(1) = MINVAL( ux(:, :, :) )
+    v(2) = MINVAL( uy(:, :, :) )
+    v(3) = MINVAL( uz(:, :, :) )
+
+    imin = MINLOC( ux(:, :, :) )
+    jmin = MINLOC( uy(:, :, :) )
+    kmin = MINLOC( uz(:, :, :) )
+
+    Call Print_debug_mid_msg("  The max/min Ux, Uy, Uz are:")
+    write(*, '(5X, A, 3I8.1, 1ES20.12)') 'Umax : ', imax, u(1)
+    write(*, '(5X, A, 3I8.1, 1ES20.12)') 'Vmax : ', jmax, u(2)
+    write(*, '(5X, A, 3I8.1, 1ES20.12)') 'Wmax : ', kmax, u(3)
+    write(*, '(5X, A, 3I8.1, 1ES20.12)') 'Umin : ', imin, v(1)
+    write(*, '(5X, A, 3I8.1, 1ES20.12)') 'Vmin : ', jmin, v(2)
+    write(*, '(5X, A, 3I8.1, 1ES20.12)') 'Wmin : ', kmin, v(3)
+
+
+    !write(*, *) 'Umax : ', imax, u(1)
+    !write(*, *) 'Vmax : ', jmax, u(2)
+    !write(*, *) 'Wmax : ', kmax, u(3)
+
+    !write(*, *) 'Umin : ', imin, v(1)
+    !write(*, *) 'Vmin : ', jmin, v(2)
+    !write(*, *) 'Wmin : ', kmin, v(3)
 
     return
   end subroutine

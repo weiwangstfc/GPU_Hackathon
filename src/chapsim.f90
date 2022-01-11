@@ -159,6 +159,7 @@ end interface
      icase == ICASE_INVSD_BURGERS .or. &
      icase == ICASE_HEATEQ) then
     call Solve_burgers_eq_iteration
+    call Check_maximum_velocity(flow%qx, flow%qy, flow%qz)
     return
   end if
   

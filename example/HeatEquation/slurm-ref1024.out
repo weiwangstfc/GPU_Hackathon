@@ -1,0 +1,133 @@
+cpu-bind=MASK - cn1109, task  0  0 [18468]: mask 0xffffffffffffffff set
+
+Currently Loaded Modules:
+  1) CUDA/11.5.1      4) zlib/1.2.11-GCCcore-11.2.0
+  2) NVHPC/22.1       5) binutils/2.37-GCCcore-11.2.0
+  3) GCCcore/11.2.0   6) GCC/11.2.0
+
+ 
+
+cpu-bind=MASK - cn1109, task  0  0 [18537]: mask 0xffffffffffffffff set
+--------------------------------------------------------------------------
+Sorry!  You were supposed to get help about:
+    dlopen failed
+But I couldn't open the help file:
+    /proj/nv/libraries/Linux_x86_64/21.11/openmpi/206454-rel-1/share/openmpi/help-mpi-common-cuda.txt: No such file or directory.  Sorry!
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+Sorry!  You were supposed to get help about:
+    ini file:file not found
+But I couldn't open the help file:
+    /proj/nv/libraries/Linux_x86_64/21.11/openmpi/206454-rel-1/share/openmpi/help-mpi-btl-openib.txt: No such file or directory.  Sorry!
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+Sorry!  You were supposed to get help about:
+    no device params found
+But I couldn't open the help file:
+    /proj/nv/libraries/Linux_x86_64/21.11/openmpi/206454-rel-1/share/openmpi/help-mpi-btl-openib.txt: No such file or directory.  Sorry!
+--------------------------------------------------------------------------
+ ===============================================================================
+ CHAPSim2.0 Starts ...
+ ===============================================================================
+ Reading General Parameters from input.ini ...
+ ===============================================================================
+ Reading [decomposition]
+                Processor in Row :                   1
+             Processor in Column :                   1
+ ===============================================================================
+ Reading [flowtype]
+                           Case :        Heat Equation
+                  Thermal field :                   No
+        Conjugate Heat Transfer :                   No
+ ===============================================================================
+ Reading [boundary]
+                        BC in x :             Periodic
+                        BC in y :             Periodic
+                        BC in z :             Periodic
+ ===============================================================================
+ Reading [flowparams]
+                Reynolds number :             100.0000
+ ===============================================================================
+ Reading [geometry]
+                    length in x :               2.0000
+                    length in z :               2.0000
+                    length in y :               2.0000
+                    bottom in y :               0.0000
+                       top in y :               2.0000
+ ===============================================================================
+ Reading [mesh]
+          Mesh Cell Number in x :                 1024
+          Mesh Cell Number in y :                    8
+          Mesh Cell Number in z :                    8
+              Y mesh stretching :                   No
+ ===============================================================================
+ Reading [initialization]
+                     Start from :              Scratch
+            Initial Reynolds No :             100.0000
+         Initial Re lasts until :                 1000
+   Initial velocity perturbation :              0.0000
+ ===============================================================================
+ Reading [timestepping]
+             Physical Time Step :           0.1000E-02
+ ===============================================================================
+ Reading [schemes]
+          Spatial Accuracy Order:                    4
+                   Viscous Term :      Explicit Scheme
+ ===============================================================================
+ Reading [simcontrol]
+   Flow simulation lasts between :         1         1
+ ===============================================================================
+ Reading [ioparams]
+     Raw  data written at every :                  200
+     Vis  data written at every :                 1000
+         Stat data written from :                  500
+     Stat data written at every :                  100
+ ===============================================================================
+ Reading [thermohydraulics]
+ ... done.
+ ===============================================================================
+ Initializing domain geometric information ...
+ ... done.
+ ===============================================================================
+ Assigning coefficient matrix for the compact FD ...
+ ... done.
+ ===============================================================================
+ Preparing geometric matrix for the compact FD ...
+ ... done.
+ ===============================================================================
+ Initializing variables for Poisson Solver ...
+ ... done.
+ ===============================================================================
+ Allocating flow and thermal variables ...
+ ... done.
+ ===============================================================================
+ Initializing flow and thermal fields ...
+ Initializing thermal field ...
+ Initializing flow field ...
+   The max/min Ux, Uy, Uz are:
+     Umax :      257       1       1  1.000000000000E+00
+     Vmax :        1       1       1  0.000000000000E+00
+     Wmax :        1       1       1  0.000000000000E+00
+     Umin :      769       1       1 -1.000000000000E+00
+     Vmin :        1       1       1  0.000000000000E+00
+     Wmin :        1       1       1  0.000000000000E+00
+ ... done.
+ ===============================================================================
+ Time Step = 1/1
+   Code Performance Info :
+     Time for this time step : 0.0140 s
+     Elaspsed Wallclock Time : 0 h 0 m 0.0864 s 
+     Remaning Wallclock Time : 0 h 0 m 0.0000 s 
+   The max/min Ux, Uy, Uz are:
+     Umax :      257       1       1  9.999013088263E-01
+     Vmax :        1       1       1  0.000000000000E+00
+     Wmax :        1       1       1  0.000000000000E+00
+     Umin :      769       1       1 -9.999013088263E-01
+     Vmin :        1       1       1  0.000000000000E+00
+     Wmin :        1       1       1  0.000000000000E+00
+ ===============================================================================
+ CHAPSim Simulation is finished successfully.
+ Average wallclock time per step  : 0.0880 s
+ Total wallclock time of this run : 0 h 0 m 0.0880 s 
+ ===============================================================================
+  
