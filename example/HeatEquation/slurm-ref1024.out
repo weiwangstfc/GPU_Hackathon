@@ -1,4 +1,4 @@
-cpu-bind=MASK - cn1109, task  0  0 [18468]: mask 0xffffffffffffffff set
+cpu-bind=MASK - gn0003, task  0  0 [41386]: mask 0xffffffffffffffff set
 
 Currently Loaded Modules:
   1) CUDA/11.5.1      4) zlib/1.2.11-GCCcore-11.2.0
@@ -7,24 +7,54 @@ Currently Loaded Modules:
 
  
 
-cpu-bind=MASK - cn1109, task  0  0 [18537]: mask 0xffffffffffffffff set
+Wed Jan 12 16:34:33 2022       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 460.73.01    Driver Version: 460.73.01    CUDA Version: 11.2     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  A100-SXM4-40GB      On   | 00000000:41:00.0 Off |                    0 |
+| N/A   29C    P0    51W / 400W |      0MiB / 40536MiB |      0%   E. Process |
+|                               |                      |             Disabled |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+Warning: LBR backtrace method is not supported on this platform. DWARF backtrace method will be used.
+WARNING: CUDA tracing has been automatically enabled since it is a prerequisite for tracing OpenACC.
 --------------------------------------------------------------------------
-Sorry!  You were supposed to get help about:
-    dlopen failed
-But I couldn't open the help file:
-    /proj/nv/libraries/Linux_x86_64/21.11/openmpi/206454-rel-1/share/openmpi/help-mpi-common-cuda.txt: No such file or directory.  Sorry!
+WARNING: No preset parameters were found for the device that Open MPI
+detected:
+
+  Local host:            gn0003
+  Device name:           mlx5_1
+  Device vendor ID:      0x02c9
+  Device vendor part ID: 4123
+
+Default device parameters will be used, which may result in lower
+performance.  You can edit any of the files specified by the
+btl_openib_device_param_files MCA parameter to set values for your
+device.
+
+NOTE: You can turn off this warning by setting the MCA parameter
+      btl_openib_warn_no_device_params_found to 0.
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-Sorry!  You were supposed to get help about:
-    ini file:file not found
-But I couldn't open the help file:
-    /proj/nv/libraries/Linux_x86_64/21.11/openmpi/206454-rel-1/share/openmpi/help-mpi-btl-openib.txt: No such file or directory.  Sorry!
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-Sorry!  You were supposed to get help about:
-    no device params found
-But I couldn't open the help file:
-    /proj/nv/libraries/Linux_x86_64/21.11/openmpi/206454-rel-1/share/openmpi/help-mpi-btl-openib.txt: No such file or directory.  Sorry!
+No OpenFabrics connection schemes reported that they were able to be
+used on a specific port.  As such, the openib BTL (OpenFabrics
+support) will be disabled for this port.
+
+  Local host:           gn0003
+  Local device:         mlx5_0
+  Local port:           1
+  CPCs attempted:       rdmacm, udcm
 --------------------------------------------------------------------------
  ===============================================================================
  CHAPSim2.0 Starts ...
@@ -112,22 +142,163 @@ But I couldn't open the help file:
      Vmin :        1       1       1  0.000000000000E+00
      Wmin :        1       1       1  0.000000000000E+00
  ... done.
+ WARNNING: Warning: Diffusion number is larger than 1. in processor = 
+   Diffusion number :
+               5.24288000
+   Suggested dt <= :   1.9073486328125000E-004
  ===============================================================================
  Time Step = 1/1
+  Done! 
+  Done! 
+  Done! 
    Code Performance Info :
-     Time for this time step : 0.0140 s
-     Elaspsed Wallclock Time : 0 h 0 m 0.0864 s 
+     Time for this time step : 0.4211 s
+     Elaspsed Wallclock Time : 0 h 0 m 0.5067 s 
      Remaning Wallclock Time : 0 h 0 m 0.0000 s 
    The max/min Ux, Uy, Uz are:
-     Umax :      257       1       1  9.999013088263E-01
+     Umax :      282       8       8  1.896207531042E+38
      Vmax :        1       1       1  0.000000000000E+00
      Wmax :        1       1       1  0.000000000000E+00
-     Umin :      769       1       1 -9.999013088263E-01
+     Umin :      283       8       8 -1.896205134461E+38
      Vmin :        1       1       1  0.000000000000E+00
      Wmin :        1       1       1  0.000000000000E+00
  ===============================================================================
  CHAPSim Simulation is finished successfully.
- Average wallclock time per step  : 0.0880 s
- Total wallclock time of this run : 0 h 0 m 0.0880 s 
+ Average wallclock time per step  : 0.5084 s
+ Total wallclock time of this run : 0 h 0 m 0.5084 s 
  ===============================================================================
   
+Generating '/tmp/nsys-report-486b.qdstrm'
+[1/8] [0%                          ] report7.nsys-rep[1/8] [0%                          ] report7.nsys-rep[1/8] [===========50%              ] report7.nsys-rep[1/8] [0%                          ] report7.nsys-rep[1/8] [===23%                      ] report7.nsys-rep[1/8] [=========46%                ] report7.nsys-rep[1/8] [====28%                     ] report7.nsys-rep[1/8] [==21%                       ] report7.nsys-rep[1/8] [=16%                        ] report7.nsys-rep[1/8] [13%                         ] report7.nsys-rep[1/8] [11%                         ] report7.nsys-rep[1/8] [10%                         ] report7.nsys-rep[1/8] [=17%                        ] report7.nsys-rep[1/8] [====25%                     ] report7.nsys-rep[1/8] [======34%                   ] report7.nsys-rep[1/8] [======35%                   ] report7.nsys-rep[1/8] [=========46%                ] report7.nsys-rep[1/8] [=============58%            ] report7.nsys-rep[1/8] [================70%         ] report7.nsys-rep[1/8] [========================100%] report7.nsys-rep[1/8] [========================100%] report7.nsys-rep
+[2/8] [0%                          ] report7.sqlite[2/8] [1%                          ] report7.sqlite[2/8] [2%                          ] report7.sqlite[2/8] [3%                          ] report7.sqlite[2/8] [4%                          ] report7.sqlite[2/8] [5%                          ] report7.sqlite[2/8] [6%                          ] report7.sqlite[2/8] [7%                          ] report7.sqlite[2/8] [8%                          ] report7.sqlite[2/8] [9%                          ] report7.sqlite[2/8] [10%                         ] report7.sqlite[2/8] [11%                         ] report7.sqlite[2/8] [12%                         ] report7.sqlite[2/8] [13%                         ] report7.sqlite[2/8] [14%                         ] report7.sqlite[2/8] [=15%                        ] report7.sqlite[2/8] [=16%                        ] report7.sqlite[2/8] [=17%                        ] report7.sqlite[2/8] [==18%                       ] report7.sqlite[2/8] [==19%                       ] report7.sqlite[2/8] [==20%                       ] report7.sqlite[2/8] [==21%                       ] report7.sqlite[2/8] [===22%                      ] report7.sqlite[2/8] [===23%                      ] report7.sqlite[2/8] [===24%                      ] report7.sqlite[2/8] [====25%                     ] report7.sqlite[2/8] [====26%                     ] report7.sqlite[2/8] [====27%                     ] report7.sqlite[2/8] [====28%                     ] report7.sqlite[2/8] [=====29%                    ] report7.sqlite[2/8] [=====30%                    ] report7.sqlite[2/8] [=====31%                    ] report7.sqlite[2/8] [=====32%                    ] report7.sqlite[2/8] [======33%                   ] report7.sqlite[2/8] [======34%                   ] report7.sqlite[2/8] [======35%                   ] report7.sqlite[2/8] [=======36%                  ] report7.sqlite[2/8] [=======37%                  ] report7.sqlite[2/8] [=======38%                  ] report7.sqlite[2/8] [=======39%                  ] report7.sqlite[2/8] [========40%                 ] report7.sqlite[2/8] [========41%                 ] report7.sqlite[2/8] [========42%                 ] report7.sqlite[2/8] [=========43%                ] report7.sqlite[2/8] [=========44%                ] report7.sqlite[2/8] [=========45%                ] report7.sqlite[2/8] [=========46%                ] report7.sqlite[2/8] [==========47%               ] report7.sqlite[2/8] [==========48%               ] report7.sqlite[2/8] [==========49%               ] report7.sqlite[2/8] [===========50%              ] report7.sqlite[2/8] [===========51%              ] report7.sqlite[2/8] [===========52%              ] report7.sqlite[2/8] [===========53%              ] report7.sqlite[2/8] [============54%             ] report7.sqlite[2/8] [============55%             ] report7.sqlite[2/8] [============56%             ] report7.sqlite[2/8] [============57%             ] report7.sqlite[2/8] [=============58%            ] report7.sqlite[2/8] [=============59%            ] report7.sqlite[2/8] [=============60%            ] report7.sqlite[2/8] [==============61%           ] report7.sqlite[2/8] [==============62%           ] report7.sqlite[2/8] [==============63%           ] report7.sqlite[2/8] [==============64%           ] report7.sqlite[2/8] [===============65%          ] report7.sqlite[2/8] [===============66%          ] report7.sqlite[2/8] [===============67%          ] report7.sqlite[2/8] [================68%         ] report7.sqlite[2/8] [================69%         ] report7.sqlite[2/8] [================70%         ] report7.sqlite[2/8] [================71%         ] report7.sqlite[2/8] [=================72%        ] report7.sqlite[2/8] [=================73%        ] report7.sqlite[2/8] [=================74%        ] report7.sqlite[2/8] [==================75%       ] report7.sqlite[2/8] [==================76%       ] report7.sqlite[2/8] [==================77%       ] report7.sqlite[2/8] [==================78%       ] report7.sqlite[2/8] [===================79%      ] report7.sqlite[2/8] [===================80%      ] report7.sqlite[2/8] [===================81%      ] report7.sqlite[2/8] [===================82%      ] report7.sqlite[2/8] [====================83%     ] report7.sqlite[2/8] [====================84%     ] report7.sqlite[2/8] [====================85%     ] report7.sqlite[2/8] [=====================86%    ] report7.sqlite[2/8] [=====================87%    ] report7.sqlite[2/8] [=====================88%    ] report7.sqlite[2/8] [=====================89%    ] report7.sqlite[2/8] [======================90%   ] report7.sqlite[2/8] [======================91%   ] report7.sqlite[2/8] [======================92%   ] report7.sqlite[2/8] [=======================93%  ] report7.sqlite[2/8] [=======================94%  ] report7.sqlite[2/8] [=======================95%  ] report7.sqlite[2/8] [=======================96%  ] report7.sqlite[2/8] [========================97% ] report7.sqlite[2/8] [========================98% ] report7.sqlite[2/8] [========================99% ] report7.sqlite[2/8] [========================100%] report7.sqlite[2/8] [========================100%] report7.sqlite
+[3/8] Executing 'nvtxsum' stats report
+
+NVTX Range Statistics:
+
+ Time (%)  Total Time (ns)  Instances    Avg (ns)       Med (ns)      Min (ns)     Max (ns)     StdDev (ns)    Style                Range              
+ --------  ---------------  ---------  -------------  -------------  -----------  -----------  -------------  -------  --------------------------------
+     33.8      423,014,689          1  423,014,689.0  423,014,689.0  423,014,689  423,014,689            0.0  PushPop  Solve_eqs_iteration             
+     33.3      416,808,055          3  138,936,018.3   17,703,908.0   17,646,699  381,457,448  210,029,721.0  PushPop  Get_x_2nd_derivative_P2P_3dArray
+     29.0      363,616,532          3  121,205,510.7      144,087.0      142,978  363,329,467  209,685,497.1  PushPop  initialize fo3d                 
+      1.5       18,523,344        192       96,475.8       94,688.5       90,359      133,488        6,711.3  PushPop  TDMA RHS                        
+      1.4       17,737,893        192       92,384.9       90,448.5       87,648      127,218        4,824.6  PushPop  Transfer fo to fo3d             
+      0.8        9,431,469        192       49,122.2       48,054.0       45,449       81,578        4,342.7  PushPop  Transfer fi3d to fi             
+      0.3        3,645,022          3    1,215,007.3    1,186,648.0    1,162,249    1,296,125       71,301.4  PushPop  RK                              
+      0.0          370,244          3      123,414.7      115,118.0      112,528      142,598       16,663.7  PushPop  Prepare_TDMA_2deri_RHS_array    
+      0.0           83,548          3       27,849.3       26,120.0       26,029       31,399        3,074.4  PushPop  Solve_TDMA                      
+      0.0           10,600          3        3,533.3        1,160.0          470        8,970        4,720.9  PushPop  Get_x_1st_derivative_P2P_3dArray
+
+[4/8] Executing 'cudaapisum' stats report
+
+CUDA API Statistics:
+
+ Time (%)  Total Time (ns)  Num Calls    Avg (ns)      Med (ns)     Min (ns)    Max (ns)   StdDev (ns)          Name        
+ --------  ---------------  ---------  ------------  ------------  ----------  ----------  -----------  --------------------
+     36.3       15,848,802          1  15,848,802.0  15,848,802.0  15,848,802  15,848,802          0.0  cuMemHostAlloc      
+     28.8       12,595,752      2,124       5,930.2       6,540.0         690      35,800      2,665.2  cuStreamSynchronize 
+      9.5        4,152,199        775       5,357.7       5,120.0       3,340      41,219      1,693.0  cuMemcpyHtoDAsync_v2
+      8.9        3,896,489        579       6,729.7       6,370.0       5,350      58,819      2,536.4  cuLaunchKernel      
+      8.0        3,486,751      1,548       2,252.4       2,210.0       1,760       9,270        504.7  cuEventRecord       
+      4.1        1,806,075        387       4,666.9       4,540.0       3,750      12,380        838.8  cuMemcpyDtoHAsync_v2
+      1.7          721,727          1     721,727.0     721,727.0     721,727     721,727          0.0  cuMemAllocHost_v2   
+      1.3          563,030        387       1,454.9       1,610.0         680       2,670        458.1  cuEventSynchronize  
+      0.7          325,002         12      27,083.5       2,559.5       1,970     287,094     81,917.9  cuMemAlloc_v2       
+      0.7          285,635          1     285,635.0     285,635.0     285,635     285,635          0.0  cuModuleLoadDataEx  
+      0.0           10,860          1      10,860.0      10,860.0      10,860      10,860          0.0  cuMemsetD32Async    
+      0.0           10,100         13         776.9         530.0         350       2,740        645.9  cuEventCreate       
+
+[5/8] Executing 'gpukernsum' stats report
+
+CUDA Kernel Statistics:
+
+ Time (%)  Total Time (ns)  Instances  Avg (ns)  Med (ns)  Min (ns)  Max (ns)  StdDev (ns)                          Name                        
+ --------  ---------------  ---------  --------  --------  --------  --------  -----------  ----------------------------------------------------
+     36.1          971,092        192   5,057.8   5,056.0     5,023     5,504         45.2  operations_prepare_tdma_2deri_rhs_array_2157_gpu    
+     31.8          855,929        192   4,458.0   4,448.0     4,384     4,704         43.5  operations_get_x_2nd_derivative_p2p_3darray_3305_gpu
+     31.5          848,536        192   4,419.5   4,416.0     4,383     4,704         53.3  operations_get_x_2nd_derivative_p2p_3darray_3322_gpu
+      0.6           15,648          3   5,216.0   5,184.0     5,152     5,312         84.7  operations_get_x_2nd_derivative_p2p_3darray_3292_gpu
+
+[6/8] Executing 'gpumemtimesum' stats report
+
+CUDA Memory Operation Statistics (by time):
+
+ Time (%)  Total Time (ns)  Count  Avg (ns)  Med (ns)  Min (ns)  Max (ns)  StdDev (ns)      Operation     
+ --------  ---------------  -----  --------  --------  --------  --------  -----------  ------------------
+     66.1        1,969,458    775   2,541.2   2,528.0     1,920     4,288        295.8  [CUDA memcpy HtoD]
+     33.8        1,008,557    387   2,606.1   2,432.0     2,239    32,928      2,638.6  [CUDA memcpy DtoH]
+      0.1            1,952      1   1,952.0   1,952.0     1,952     1,952          0.0  [CUDA memset]     
+
+[7/8] Executing 'gpumemsizesum' stats report
+
+CUDA Memory Operation Statistics (by size):
+
+ Total (MB)  Count  Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)      Operation     
+ ----------  -----  --------  --------  --------  --------  -----------  ------------------
+      3.959    775     0.005     0.004     0.000     0.016        0.003  [CUDA memcpy HtoD]
+      3.932    387     0.010     0.008     0.004     0.524        0.046  [CUDA memcpy DtoH]
+      0.000      1     0.000     0.000     0.000     0.000        0.000  [CUDA memset]     
+
+[8/8] Executing 'openaccsum' stats report
+
+OpenACC event Statistics:
+
+ Time(%)  Total Time (ns)  Num Calls    Avg (ns)      Med (ns)     Min (ns)    Max (ns)   StdDev (ns)                  Name                 
+ -------  ---------------  ---------  ------------  ------------  ----------  ----------  -----------  -------------------------------------
+    18.1       16,376,813          1  16,376,813.0  16,376,813.0  16,376,813  16,376,813          0.0  Device Init@operations.f90:3289      
+     8.9        8,052,188        384      20,969.2      22,984.5       5,910      66,279     14,703.7  Enter Data@operations.f90:2156       
+     6.9        6,229,365        384      16,222.3      18,139.5       3,100      60,339     13,078.6  Exit Data@operations.f90:2156        
+     6.1        5,539,628        384      14,426.1      14,834.5       1,290      41,679     12,770.6  Exit Data@operations.f90:3322        
+     4.9        4,408,405        192      22,960.4      22,294.0      20,780      39,769      2,484.6  Enter Data@operations.f90:3304       
+     4.5        4,075,000        192      21,224.0      20,969.5      19,240      35,540      1,643.5  Update@operations.f90:3321           
+     4.2        3,802,535        192      19,804.9      19,639.5      17,089      41,469      1,889.0  Compute Construct@operations.f90:3304
+     4.0        3,588,158        384       9,344.2      12,714.5       3,520      32,209      5,684.0  Enter Data@operations.f90:3322       
+     3.9        3,559,056        192      18,536.8      18,120.0      17,429      25,800      1,445.7  Compute Construct@operations.f90:3322
+     3.9        3,522,986        192      18,348.9      18,044.5      17,319      27,120      1,189.9  Compute Construct@operations.f90:2156
+     3.4        3,072,958        576       5,335.0       6,060.0       1,570      15,440      2,704.7  Wait@operations.f90:3322             
+     2.6        2,378,133        384       6,193.1       5,929.5       4,480      18,370      1,306.4  Enqueue Upload@operations.f90:2156   
+     2.6        2,332,770        384       6,074.9       5,265.0       2,380      17,829      3,371.9  Wait@operations.f90:2156             
+     2.5        2,271,254        192      11,829.4      11,664.5       9,260      26,539      1,437.2  Wait@operations.f90:3326             
+     2.1        1,887,569        192       9,831.1       9,660.0       5,210      20,129      1,511.5  Wait@operations.f90:2176             
+     2.0        1,780,578        192       9,273.8       9,310.0       8,040      10,150        345.0  Wait@operations.f90:3321             
+     2.0        1,777,568        192       9,258.2       9,225.0       7,549      16,799        880.2  Enqueue Download@operations.f90:2176 
+     1.9        1,738,484        192       9,054.6       8,980.0       7,040      30,850      1,733.8  Enqueue Launch@operations.f90:3305   
+     1.9        1,675,836        192       8,728.3       8,680.0       7,800      10,820        376.0  Wait@operations.f90:2157             
+     1.7        1,541,024        192       8,026.2       7,760.0       7,310      15,360      1,107.9  Enqueue Launch@operations.f90:3322   
+     1.7        1,510,484        192       7,867.1       7,744.5       6,579      14,389        836.7  Wait@operations.f90:3305             
+     1.6        1,485,591        192       7,737.5       7,620.0       6,980      15,260        795.4  Enqueue Download@operations.f90:3326 
+     1.6        1,444,892        192       7,525.5       7,490.0       3,060      16,170        899.9  Wait@operations.f90:3304             
+     1.6        1,431,150        192       7,453.9       7,290.0       5,910      14,680      1,006.0  Enqueue Upload@operations.f90:3321   
+     1.5        1,401,667        192       7,300.3       7,135.0       6,620      13,859        861.6  Enqueue Launch@operations.f90:2157   
+     1.3        1,171,037        192       6,099.2       5,980.0       5,430      10,539        571.3  Enqueue Upload@operations.f90:3304   
+     0.7          666,600        192       3,471.9       3,210.0       2,950      17,639      1,434.5  Exit Data@operations.f90:3304        
+     0.6          522,101          3     174,033.7      96,908.0      94,139     331,054    135,990.6  Exit Data@operations.f90:3289        
+     0.4          371,744          3     123,914.7      76,369.0      74,239     221,136     84,202.9  Wait@operations.f90:3297             
+     0.2          204,926          3      68,308.7      18,909.0      13,300     172,717     90,463.8  Enter Data@operations.f90:3300       
+     0.2          166,637          3      55,545.7      18,780.0      17,319     130,538     64,949.4  Enter Data@operations.f90:3289       
+     0.2          146,007          3      48,669.0      25,130.0      24,499      96,378     41,318.4  Compute Construct@operations.f90:3289
+     0.1           91,129          3      30,376.3      13,230.0      12,460      65,439     30,367.6  Enqueue Launch@operations.f90:3292   
+     0.1           83,559          2      41,779.5      41,779.5       5,750      77,809     50,953.4  Enqueue Upload@operations.f90:3289   
+     0.1           52,960          3      17,653.3      11,370.0      10,950      30,640     11,248.7  Enqueue Download@operations.f90:3297 
+     0.0           41,760          6       6,960.0       6,030.0       4,280      14,290      3,733.5  Enqueue Upload@operations.f90:3300   
+     0.0           26,690          3       8,896.7       5,760.0       4,900      16,030      6,192.6  Wait@operations.f90:3289             
+     0.0           21,820          3       7,273.3       8,810.0       4,130       8,880      2,722.4  Wait@operations.f90:3292             
+     0.0           17,860          3       5,953.3       6,380.0       4,030       7,450      1,749.5  Wait@operations.f90:3300             
+     0.0            7,660          3       2,553.3       2,550.0       2,490       2,620         65.1  Exit Data@operations.f90:3332        
+     0.0                0          2           0.0           0.0           0           0          0.0  Alloc@operations.f90:2156            
+     0.0                0          1           0.0           0.0           0           0          0.0  Alloc@operations.f90:3289            
+     0.0                0          7           0.0           0.0           0           0          0.0  Alloc@operations.f90:3300            
+     0.0                0          1           0.0           0.0           0           0          0.0  Alloc@operations.f90:3304            
+     0.0                0        384           0.0           0.0           0           0          0.0  Create@operations.f90:2156           
+     0.0                0          3           0.0           0.0           0           0          0.0  Create@operations.f90:3289           
+     0.0                0          9           0.0           0.0           0           0          0.0  Create@operations.f90:3300           
+     0.0                0        192           0.0           0.0           0           0          0.0  Create@operations.f90:3304           
+     0.0                0        192           0.0           0.0           0           0          0.0  Create@operations.f90:3322           
+     0.0                0        384           0.0           0.0           0           0          0.0  Delete@operations.f90:2176           
+     0.0                0          3           0.0           0.0           0           0          0.0  Delete@operations.f90:3297           
+     0.0                0        192           0.0           0.0           0           0          0.0  Delete@operations.f90:3308           
+     0.0                0        192           0.0           0.0           0           0          0.0  Delete@operations.f90:3326           
+     0.0                0          3           0.0           0.0           0           0          0.0  Delete@operations.f90:3332           
+
+Generated:
+    /home/vol00/tmp60/GPU_Hackathon/CHAPSim2.1_for_GPU_Hackathon/example/HeatEquation/report7.nsys-rep
+    /home/vol00/tmp60/GPU_Hackathon/CHAPSim2.1_for_GPU_Hackathon/example/HeatEquation/report7.sqlite

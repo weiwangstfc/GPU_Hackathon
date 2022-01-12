@@ -31,7 +31,7 @@ else ifeq ($(cfg), intel)
 	FFLGS= -DOUBLE_PREC -DDEBUG
 	FOPTS= -O3  -march=native  -fimplicit-none  -Wall  -Wline-truncation  -fwhole-file  -std=f2008
 else
-	FOPTS= -O0 -pg # -march=native  -fimplicit-none  -Wall  -Wline-truncation  -fwhole-file  -std=f2008 \
+	FOPTS= -O0 -pg -acc -Minfo=accel -gpu=cc80# -march=native  -fimplicit-none  -Wall  -Wline-truncation  -fwhole-file  -std=f2008 \
 	-ffpe-trap=invalid,zero,overflow -fall-intrinsics
 	FFLGS= -DOUBLE_PREC
 endif

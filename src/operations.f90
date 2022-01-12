@@ -2123,6 +2123,7 @@ contains
 !===============================================================================
     use parameters_constant_mod
     use input_general_mod
+    use nvtx
     implicit none
 !===============================================================================
 ! Arguments
@@ -2141,17 +2142,22 @@ contains
     integer(4) :: i
     integer(4) :: im2, im1, ip1, ip2
     logical :: fbc = .false.
+    integer(4) :: err(n)
 !===============================================================================
 ! Code
 !===============================================================================
     ! initilisation
-    fo(:) = ZERO
+    !fo(:) = ZERO
 !-------------------------------------------------------------------------------
 ! bulk body for i from 2 to n-1
 ! bulk body and b.c. for periodic b.c.
-!-------------------------------------------------------------------------------
+!------------------------------------------------------------------------------
+    call nvtxStartRange("TDMA RHS")
+    write(*,*) 'Before'
+    !$acc kernels present(fo, n, bc, inbr, dd, coeff, fi) 
     do i = 1, n
-
+      err(i) = 0
+      fo(i) = ZERO 
       ! exclude non-periodic b.c. at both sides
       fbc = (i == 1 .or. i == 2 .or. i == n-1 .or. i == n)
       if( (.not. bc(1)==IBC_PERIODIC) .and. fbc) cycle
@@ -2162,12 +2168,17 @@ contains
       ip2 = inbr(4, i)
 
       if (str == 'C2C' .or. str == 'P2P') then
-        fo(i) = coeff( 3, 1, bc(1) ) * ( fi(ip1) - TWO * fi(i) + fi(im1) ) + &
-                coeff( 3, 2, bc(1) ) * ( fi(ip2) - TWO * fi(i) + fi(im2) )
+        fo(i) = ( coeff( 3, 1, bc(1) ) * ( fi(ip1) - TWO * fi(i) + fi(im1) ) + &
+                  coeff( 3, 2, bc(1) ) * ( fi(ip2) - TWO * fi(i) + fi(im2) ) ) * dd
       else 
-        call Print_error_msg("101: Error input in prepare_FD_TDMA_RHS.")
-      end if
-
+        err(i) = 1 
+      end if 
+    end do
+    !$acc end kernels
+    call nvtxEndRange
+    do i = 1, n
+      if(err(i) == 1) &
+      call Print_error_msg("101: Error input in prepare_FD_TDMA_RHS.")
     end do
 !-------------------------------------------------------------------------------
 ! boundary at the side of i = 1
@@ -2178,12 +2189,12 @@ contains
       
       if (str == 'C2C' .or. str == 'P2P') then
 
-        fo(1) = coeff( 1, 1, bc(1) ) * fi(1) + &
-                coeff( 1, 2, bc(1) ) * fi(2) + &
-                coeff( 1, 3, bc(1) ) * fi(3) + &
-                coeff( 1, 4, bc(1) ) * fi(4)
+        fo(1) = ( coeff( 1, 1, bc(1) ) * fi(1) + &
+                  coeff( 1, 2, bc(1) ) * fi(2) + &
+                  coeff( 1, 3, bc(1) ) * fi(3) + &
+                  coeff( 1, 4, bc(1) ) * fi(4) ) * dd
 
-        fo(2) = coeff( 2, 1, bc(1) ) * ( fi(3) - TWO * fi(2) + fi(1) )
+        fo(2) = ( coeff( 2, 1, bc(1) ) * ( fi(3) - TWO * fi(2) + fi(1) ) ) * dd
       else 
         call Print_error_msg("103: Error input in prepare_FD_TDMA_RHS.")
       end if
@@ -2200,11 +2211,11 @@ contains
       
       if (str == 'C2C' .or. str == 'P2P') then
 
-        fo(n) = coeff( 5, 1, bc(2) ) * fi(n) + &
-                coeff( 5, 2, bc(2) ) * fi(n - 1) + &
-                coeff( 5, 3, bc(2) ) * fi(n - 2) + &
-                coeff( 5, 4, bc(2) ) * fi(n - 3) 
-        fo(n - 1) = coeff( 4, 1, bc(2) ) * ( fi(n) - TWO * fi(n - 1) + fi(n - 2) )
+        fo(n) = ( coeff( 5, 1, bc(2) ) * fi(n) + &
+                  coeff( 5, 2, bc(2) ) * fi(n - 1) + &
+                  coeff( 5, 3, bc(2) ) * fi(n - 2) + &
+                  coeff( 5, 4, bc(2) ) * fi(n - 3) ) * dd 
+        fo(n - 1) = ( coeff( 4, 1, bc(2) ) * ( fi(n) - TWO * fi(n - 1) + fi(n - 2) ) ) *  dd
 
       else 
         call Print_error_msg("106: Error input in prepare_FD_TDMA_RHS.")
@@ -2214,7 +2225,7 @@ contains
       call Print_error_msg("107: Error input in prepare_FD_TDMA_RHS.")
     end if
 
-    fo(:) = fo(:) * dd
+    !fo(:) = fo(:) * dd
 
     return
   end subroutine Prepare_TDMA_2deri_RHS_array
@@ -3252,7 +3263,7 @@ contains
 
   !===============================================================================
   subroutine Get_x_2nd_derivative_P2P_3dArray(d, fi3d, fo3d)
-    use parameters_constant_mod, only : ZERO
+    use parameters_constant_mod!, only : ZERO
     use udf_type_mod, only : t_domain
     use tridiagonal_matrix_algorithm, only : Solve_TDMA
     use nvtx
@@ -3264,28 +3275,64 @@ contains
 
     real(WP)   :: fi( size(fi3d, 1) )
     real(WP)   :: fo( size(fo3d, 1) )
-    integer(4) :: dim, nox
-    integer(4) :: k, j
+    integer(4) :: dim, nox, noy, noz, nix, niy, niz
+    integer(4) :: k, j, i
     character(len=10) ::  jtcount
 
     dim = 1
+    nix = size(fi3d, 1)
+    niy = size(fi3d, 2)
+    niz = size(fi3d, 3)
     nox = size(fo3d, 1)
-    fo3d(:, :, :) = ZERO
-    do k = 1, size(fi3d, 3)
-      do j = 1, size(fi3d, 2)
-        fi(:) = fi3d(:, j, k)
+    noy = size(fo3d, 2)
+    noz = size(fo3d, 3)
+    call nvtxStartRange("initialize fo3d")
+    !$acc kernels 
+    do k = 1, noz
+        do j = 1, noy
+            do i = 1, nox 
+              fo3d(i, j, k) = ZERO 
+            end do
+        end do
+    end do
+    !$acc end kernels
+    call nvtxEndRange
+    ! fo3d(:, :, :) = ZERO
+    !$acc enter data create(fo(1:nox)) copyin(nox, d%bc(:, dim),  d%iNeighb(:, :), d%h2r(dim), d2rP2P(:, :, :), fi(:))
+    do k = 1, niz
+      do j = 1, niy
+        call nvtxStartRange("Transfer fi3d to fi")
+        !$acc kernels
+        do i = 1, nix
+          fi(i) = fi3d(i, j, k)
+        end do  
+        !$acc end kernels
+        call nvtxEndRange
+        !fi(:) = fi3d(:, j, k)
         if(k*j == 1) call nvtxStartRange("Prepare_TDMA_2deri_RHS_array")
         call Prepare_TDMA_2deri_RHS_array( 'P2P', nox, d%bc(:, dim), &
                 d%iNeighb(:, :), d%h2r(dim), d2rP2P(:, :, :), fi(:), fo(:) )
+        !!$acc update self(fo)
         if(k*j == 1) call nvtxEndRange
         if(k*j == 1) call nvtxStartRange("Solve_TDMA")
         call Solve_TDMA(d%is_periodic(dim), fo(:), ad2x_P2P(:), bd2x_P2P(:), &
                 cd2x_P2P(:), dd2x_P2P(:), nox )
         if(k*j == 1) call nvtxEndRange
-        fo3d(:, j, k) = fo(:)
+        call nvtxStartRange("Transfer fo to fo3d")
+        !$acc update device(fo(1:nox))
+        !$acc parallel loop present (fo) 
+        do i = 1, nox
+           fo3d(i, j, k) = fo(i)
+        end do
+        !$acc end parallel loop
+        call nvtxEndRange
+        !fo3d(:, j, k) = fo(:)
+        !!$acc update self(fo)
       end do
     end do
-
+    !$acc exit data delete(fo)
+    write(*,*) ' Done! '
+   
     return
   end subroutine Get_x_2nd_derivative_P2P_3dArray
 !===============================================================================
