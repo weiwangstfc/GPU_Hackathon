@@ -39,14 +39,15 @@ endif
 
 include ./lib/2decomp_fft/src/Makefile.inc
 INCLUDE = -I ./lib/2decomp_fft/include
-LIBS = -L ./lib/2decomp_fft/lib -l2decomp_fft
+LIBS = -L ./lib/2decomp_fft/lib -l2decomp_fft -L/scratch21/eb/gpu/software/NVHPC/22.1/Linux_x86_64/22.1/cuda/lib64 -lnvToolsExt 
 
 DIR_SRC= ./src
 DIR_BIN= ./bin
 DIR_OBJ= ./obj
 DIR_MOD= ./mod
 
-OBJS= modules.o\
+OBJS= nvtx.o\
+      modules.o\
       mpi_mod.o\
       tools_general.o\
       input_general.o\

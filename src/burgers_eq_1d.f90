@@ -13,6 +13,7 @@ contains
     use operations
     use input_general_mod
     use boundary_conditions_mod
+    use nvtx
     implicit none
 
     type(t_flow),   intent(inout) :: f
@@ -32,23 +33,30 @@ contains
 
     if(idir == 1) then
       f%m1_rhs = ZERO
+      call nvtxStartRange("Get_x_1st_derivative_P2P_3dArray")
       ! for x-mom convection term : d(qx * qx)/dx at (i', j, k)
       if(icase == ICASE_BURGERS .or. icase == ICASE_INVSD_BURGERS) then
         call Get_x_1st_derivative_P2P_3dArray( d, -f%qx * f%qx * HALF, m1_rhs )
         f%m1_rhs = f%m1_rhs + m1_rhs
       end if
+      call nvtxEndRange
+
+      call nvtxStartRange("Get_x_2nd_derivative_P2P_3dArray")
       ! for x-mom diffusion term , \mu * Ljj(ux) at (i', j, k)
       if(icase == ICASE_BURGERS .or. icase == ICASE_HEATEQ) then
         call Get_x_2nd_derivative_P2P_3dArray( d, f%qx, m1_rhs )
         f%m1_rhs = f%m1_rhs + f%rre * m1_rhs
       end if
+      call nvtxEndRange
 
+      call nvtxStartRange("RK")
       rhs1_dummy(:, :, :) = f%m1_rhs(:, :, :)
       f%m1_rhs(:, :, :) = tGamma(isub) * f%m1_rhs(:, :, :) + &
                           tZeta (isub) * f%m1_rhs0(:, :, :)
       f%m1_rhs0(:, :, :) = rhs1_dummy(:, :, :)
 
       f%qx(:, :, :) = f%qx(:, :, :) + dt * f%m1_rhs(:, :, :)
+      call nvtxEndRange
     else if (idir == 2) then
       f%m2_rhs = ZERO
       ! for x-mom convection term : d(qx * qx)/dx at (i', j, k)
@@ -268,6 +276,7 @@ contains
     use poisson_mod
     use code_performance_mod
     use parameters_constant_mod
+    use solver_tools_mod
     implicit none
 
     integer(4) :: iter, isub
@@ -276,7 +285,7 @@ contains
     niter = nIterFlowEnd
     flow%time = tFlow 
     flow%rre = ONE / ren
-
+    call Check_cfl_diffusion_1d(domain%h2r(IDIR), flow%rre)
     !call Plot_burgers_profile(flow, domain, 0)
 
     do iter = nrsttckpt + 1, niter

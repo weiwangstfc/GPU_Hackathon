@@ -3216,6 +3216,7 @@ contains
     use parameters_constant_mod, only : ZERO
     use udf_type_mod, only : t_domain
     use tridiagonal_matrix_algorithm, only : Solve_TDMA
+    use nvtx
     implicit none
 
     type(t_domain), intent(in)   :: d
@@ -3226,6 +3227,7 @@ contains
     real(WP)   :: fo( size(fo3d, 1) )
     integer(4) :: dim, nox
     integer(4) :: k, j
+    character(len=10) ::  jtcount    
 
     dim = 1
     nox = size(fo3d, 1)
@@ -3233,10 +3235,14 @@ contains
     do k = 1, size(fi3d, 3)
       do j = 1, size(fi3d, 2)
         fi(:) = fi3d(:, j, k)
+        if(k*j == 1) call nvtxStartRange("Prepare_TDMA_2deri_RHS_array")
         call Prepare_TDMA_2deri_RHS_array( 'C2C', nox, d%bc(:, dim), &
                 d%iNeighb(:, :), d%h2r(dim), d2rC2C(:, :, :), fi(:), fo(:) )
+        if(k*j == 1) call nvtxEndRange
+        if(k*j == 1) call nvtxStartRange("Solve_TDMA"//jtcount,j)
         call Solve_TDMA(d%is_periodic(dim), fo(:), ad2x_C2C(:), bd2x_C2C(:), &
                 cd2x_C2C(:), dd2x_C2C(:), nox )
+        if(k*j == 1) call nvtxEndRange
         fo3d(:, j, k) = fo(:)
       end do
     end do
@@ -3249,6 +3255,7 @@ contains
     use parameters_constant_mod, only : ZERO
     use udf_type_mod, only : t_domain
     use tridiagonal_matrix_algorithm, only : Solve_TDMA
+    use nvtx
     implicit none
 
     type(t_domain), intent(in)   :: d
@@ -3259,6 +3266,7 @@ contains
     real(WP)   :: fo( size(fo3d, 1) )
     integer(4) :: dim, nox
     integer(4) :: k, j
+    character(len=10) ::  jtcount
 
     dim = 1
     nox = size(fo3d, 1)
@@ -3266,10 +3274,14 @@ contains
     do k = 1, size(fi3d, 3)
       do j = 1, size(fi3d, 2)
         fi(:) = fi3d(:, j, k)
+        if(k*j == 1) call nvtxStartRange("Prepare_TDMA_2deri_RHS_array")
         call Prepare_TDMA_2deri_RHS_array( 'P2P', nox, d%bc(:, dim), &
                 d%iNeighb(:, :), d%h2r(dim), d2rP2P(:, :, :), fi(:), fo(:) )
+        if(k*j == 1) call nvtxEndRange
+        if(k*j == 1) call nvtxStartRange("Solve_TDMA")
         call Solve_TDMA(d%is_periodic(dim), fo(:), ad2x_P2P(:), bd2x_P2P(:), &
                 cd2x_P2P(:), dd2x_P2P(:), nox )
+        if(k*j == 1) call nvtxEndRange
         fo3d(:, j, k) = fo(:)
       end do
     end do

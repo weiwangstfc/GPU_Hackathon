@@ -25,11 +25,14 @@
 !>
 !===============================================================================
 program chapsim
+  use nvtx
   implicit none
 
   call Initialize_chapsim ()
   call Initialize_flow    ()
+  call nvtxStartRange("Solve_eqs_iteration")
   call Solve_eqs_iteration()
+  call nvtxEndRange
   call Finalise_chapsim   ()
   
 end program
