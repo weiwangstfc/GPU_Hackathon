@@ -2154,7 +2154,7 @@ contains
 !------------------------------------------------------------------------------
     call nvtxStartRange("TDMA RHS")
     write(*,*) 'Before'
-    !$acc kernels present(fo, n, bc, inbr, dd, coeff, fi) 
+    !!$acc kernels present(fo, n, bc, inbr, dd, coeff, fi) 
     do i = 1, n
       err(i) = 0
       fo(i) = ZERO 
@@ -3298,7 +3298,7 @@ contains
     !$acc end kernels
     call nvtxEndRange
     ! fo3d(:, :, :) = ZERO
-    !$acc enter data create(fo(1:nox)) copyin(nox, d%bc(:, dim),  d%iNeighb(:, :), d%h2r(dim), d2rP2P(:, :, :), fi(:))
+    !!$acc enter data create(fo(1:nox)) copyin(nox, d%bc(:, dim),  d%iNeighb(:, :), d%h2r(dim), d2rP2P(:, :, :), fi(:))
     do k = 1, niz
       do j = 1, niy
         call nvtxStartRange("Transfer fi3d to fi")
